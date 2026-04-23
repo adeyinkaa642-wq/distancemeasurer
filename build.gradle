@@ -19,8 +19,7 @@ group = 'com.distancemeasurer.mod'
 archivesBaseName = 'distancemeasurer-1.16.5'
 
 minecraft {
-    mappings channel: 'official', version: '1.16.5'
-
+mappings channel: 'snapshot', version: '20210309-1.16.5'
     runs {
         client {
             workingDirectory project.file('run')

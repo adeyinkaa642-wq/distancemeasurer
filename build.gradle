@@ -41,7 +41,9 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
 }
-
+reobf {
+    jar { enabled = false }
+}
 jar {
     manifest {
         attributes([

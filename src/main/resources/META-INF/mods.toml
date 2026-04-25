@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT"
+
+[[mods]]
+    modId="distancemeasurer"
+    version="1.0.0"
+    displayName="Distance Measurer"
+    description='''
+        A simple client-side mod to measure block distances.
+        Press G to toggle, then right-click two blocks to measure.
+    '''
+
+[[dependencies.distancemeasurer]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36.2.39,)"
+    ordering="NONE"
+    side="CLIENT"
+
+[[dependencies.distancemeasurer]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="CLIENT"

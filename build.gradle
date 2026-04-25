@@ -4,14 +4,14 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle'
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(11)
+    toolchain.languageVersion = JavaLanguageVersion.of(8)
 }
 
 version = '1.0.0'
@@ -19,7 +19,8 @@ group = 'com.distancemeasurer.mod'
 archivesBaseName = 'distancemeasurer-1.16.5'
 
 minecraft {
-mappings channel: 'snapshot', version: '20210309-1.16.5'
+    mappings channel: 'official', version: '1.16.5'
+
     runs {
         client {
             workingDirectory project.file('run')
@@ -41,9 +42,7 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
 }
-reobf {
-    jar { enabled = false }
-}
+
 jar {
     manifest {
         attributes([

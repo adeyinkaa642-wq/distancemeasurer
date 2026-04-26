@@ -14,7 +14,7 @@ license="MIT"
 [[dependencies.distancemeasurer]]
     modId="forge"
     mandatory=true
-    versionRange="[36.2.39,)"
+    versionRange="[36,)"
     ordering="NONE"
     side="CLIENT"
 

@@ -7,8 +7,9 @@ license="MIT"
     version="1.0.0"
     displayName="Distance Measurer"
     description='''
-        A simple client-side mod to measure block distances.
-        Press G to toggle, then right-click two blocks to measure.
+        A client-side mod to measure block distances.
+        Toggle with configurable key (default G).
+        Hold a stick and right-click two blocks to measure.
     '''
 
 [[dependencies.distancemeasurer]]

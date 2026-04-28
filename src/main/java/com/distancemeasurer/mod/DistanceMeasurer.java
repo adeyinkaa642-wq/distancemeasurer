@@ -1,6 +1,7 @@
 package com.distancemeasurer.mod;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -17,7 +18,6 @@ public class DistanceMeasurer {
     private BlockPos pos1 = null;
     private BlockPos pos2 = null;
     private int awaitingClick = 1;
-    private static final int TOGGLE_KEY = GLFW.GLFW_KEY_G;
     private boolean keyWasDown = false;
 
     @SubscribeEvent
@@ -25,7 +25,8 @@ public class DistanceMeasurer {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.screen != null) return;
 
-        boolean keyDown = GLFW.glfwGetKey(mc.getWindow().getWindow(), TOGGLE_KEY) == GLFW.GLFW_PRESS;
+        boolean keyDown = GLFW.glfwGetKey(mc.getWindow().getWindow(),
+            DistanceMeasurerMod.TOGGLE_KEY.getKey().getValue()) == GLFW.GLFW_PRESS;
 
         if (keyDown && !keyWasDown) {
             enabled = !enabled;
@@ -35,7 +36,7 @@ public class DistanceMeasurer {
 
             if (enabled) {
                 mc.player.sendMessage(
-                    new StringTextComponent(TextFormatting.GREEN + "[Measure] ON — Right-click block 1"),
+                    new StringTextComponent(TextFormatting.GREEN + "[Measure] ON — Hold stick and right-click block 1"),
                     mc.player.getUUID()
                 );
             } else {
@@ -55,6 +56,9 @@ public class DistanceMeasurer {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.screen != null) return;
 
+        // Must be holding a stick
+        if (mc.player.getMainHandItem().getItem() != Items.STICK) return;
+
         if (event.getButton() == GLFW.GLFW_MOUSE_BUTTON_RIGHT && event.getAction() == GLFW.GLFW_PRESS) {
             RayTraceResult result = mc.hitResult;
             if (result == null || result.getType() != RayTraceResult.Type.BLOCK) return;
@@ -65,7 +69,7 @@ public class DistanceMeasurer {
                 pos1 = hit;
                 awaitingClick = 2;
                 mc.player.sendMessage(
-                    new StringTextComponent(TextFormatting.YELLOW + "[Measure] Pos 1: " + formatPos(pos1) + " — Now right-click Pos 2"),
+                    new StringTextComponent(TextFormatting.YELLOW + "[Measure] Pos 1: " + formatPos(pos1) + " — Right-click Pos 2"),
                     mc.player.getUUID()
                 );
             } else {
@@ -102,8 +106,9 @@ public class DistanceMeasurer {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null) return;
 
+        boolean hasStick = mc.player.getMainHandItem().getItem() == Items.STICK;
         String status = awaitingClick == 1
-            ? TextFormatting.GREEN + "[Measure ON] Right-click Pos 1"
+            ? TextFormatting.GREEN + "[Measure ON] " + (hasStick ? "Right-click Pos 1" : "Hold a STICK to measure")
             : TextFormatting.YELLOW + "[Measure ON] Pos 1 set — Right-click Pos 2";
 
         event.getLeft().add("");
